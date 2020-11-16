@@ -8,7 +8,7 @@ const Playlist = (props) => {
     const loaded = () => (
 			<div>
 				{songs.map((song) => (
-					<article>
+					<article key={song.id}>
 						<p>{song.title}</p>
 						<p>{song.artist}</p>
 						<p>{song.time}</p>
@@ -26,7 +26,8 @@ const Playlist = (props) => {
 							Edit
 						</button>
 						<FontAwesomeIcon
-							icon={faHeart}
+                            icon={faHeart}
+                            onClick={() => {props.addToFaves(song)}}
 						/>
 					</article>
 				))}

@@ -72,6 +72,24 @@ const [selectedSong, setSelectedSong] = useState(emptySong);
 
   console.log('this is selectedSong - ', selectedSong);
 
+  // ADD TO FAVORITES
+  const addToFaves = (song) => {
+    const favesArray = [...faves]
+    const songIndex = favesArray.indexOf(song)
+    if (songIndex < 0) {
+      favesArray.push(song) 
+          console.log(`adding ${song.name} to favesArray`)
+      setFaves(favesArray)
+          console.log('this is faves - ', faves)
+    } 
+  }
+
+  const removeFromFaves = (song) => {
+		const favesArray = [...faves];
+		const newFavesArray = favesArray.filter((index) => index !== song);
+		console.log('this isnewFavesArray:', newFavesArray);
+		setFaves(newFavesArray);
+	};
 
   return (
 		<div className='App'>
@@ -92,9 +110,17 @@ const [selectedSong, setSelectedSong] = useState(emptySong);
 								songs={songs}
 								deleteSong={deleteSong}
 								selectASong={selectASong}
+								faves={faves}
+								addToFaves={addToFaves}
 							/>
+
 							<h2>My Favorites</h2>
-							<Favorites {...routerProps} />
+							<Favorites
+								{...routerProps}
+								faves={faves}
+								removeFromFaves={removeFromFaves}
+							/>
+
 							<h2>Add Song to Playlist</h2>
 							<Form
 								{...routerProps}
