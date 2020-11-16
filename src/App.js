@@ -18,6 +18,7 @@ function App() {
 		time: '',
   }
   
+  // GET -- SONGS INDEX (ALL SONGS)
   const getSongs = async () => {
     try {
       const res = await fetch(url)
@@ -34,12 +35,23 @@ function App() {
 		getSongs();
   }, []);
   
+  // DELETE -- DELETE SONG
   const deleteSong = (song) => {
 		fetch(url + '/' + song.id, {
 			method: 'delete',
 		}).then((response) => getSongs());
 	};
 
+  // POST -- ADD A SONG
+  const handleAddSong = (newSong) => {
+		fetch(url, {
+      method: 'post',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(newSong),
+		}).then((response) => getSongs());
+	};
 
 
   return (
@@ -55,9 +67,13 @@ function App() {
 					path='/'
 					render={(routerProps) => (
 						<div>
-							<Playlist {...routerProps} songs={songs} deleteSong={deleteSong}/>
+							<Playlist
+								{...routerProps}
+								songs={songs}
+								deleteSong={deleteSong}
+							/>
 							<Favorites {...routerProps} />
-							<Form {...routerProps} />
+							<Form {...routerProps} handleAddSong={handleAddSong} />
 						</div>
 					)}
 				/>
@@ -65,11 +81,8 @@ function App() {
 				<Route
 					exact
 					path='/update'
-					render={(routerProps) => (
-          <Form {...routerProps} />
-          )}
+					render={(routerProps) => <Form {...routerProps} />}
 				/>
-
 			</Switch>
 		</div>
 	);

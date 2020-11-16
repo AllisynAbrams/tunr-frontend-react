@@ -16,6 +16,7 @@ const Playlist = (props) => {
 				onClick={() => {
 				props.deleteSong(song);
 				}}>X</button>
+            <button>Edit</button>
 			<FontAwesomeIcon
 			    icon={faHeart}
 				// onClick={() => props.addToFaves(song)}
