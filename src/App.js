@@ -9,14 +9,10 @@ function App() {
 
   const url = 'https://tunr-app-aa-api.herokuapp.com/songs'
 
+
   const [songs, setSongs] = useState([])
   const [faves, setFaves] = useState([])
-
-  const emptySong = {
-		title: '',
-		artist: '',
-		time: '',
-  }
+  
   
   // GET -- SONGS INDEX (ALL SONGS)
   const getSongs = async () => {
@@ -42,16 +38,39 @@ function App() {
 		}).then((response) => getSongs());
 	};
 
+  const emptySong = {
+	title: '',
+	artist: '',
+	time: '',
+};
+
+const [selectedSong, setSelectedSong] = useState(emptySong);
+
   // POST -- ADD A SONG
   const handleAddSong = (newSong) => {
 		fetch(url, {
       method: 'post',
-			headers: {
-				'Content-Type': 'application/json',
-			},
+			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify(newSong),
-		}).then((response) => getSongs());
-	};
+    }).then((response) => getSongs());
+    setSelectedSong(emptySong)
+  };
+  
+  // PUT -- UPDATE A SONG
+  const handleUpdateSong = (song) => {
+		fetch(url + '/' + song.id, {
+			method: 'put',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(song),
+    }).then((response) => getSongs());
+    setSelectedSong(emptySong);
+  };
+  
+  const selectASong = (song) => {
+    setSelectedSong(song)
+  }
+
+  console.log('this is selectedSong - ', selectedSong);
 
 
   return (
@@ -67,13 +86,23 @@ function App() {
 					path='/'
 					render={(routerProps) => (
 						<div>
+							<h2>My Playlist</h2>
 							<Playlist
 								{...routerProps}
 								songs={songs}
 								deleteSong={deleteSong}
+								selectASong={selectASong}
 							/>
+							<h2>My Favorites</h2>
 							<Favorites {...routerProps} />
-							<Form {...routerProps} handleAddSong={handleAddSong} />
+							<h2>Add Song to Playlist</h2>
+							<Form
+								{...routerProps}
+								emptySong={emptySong}
+								handleAddSong={handleAddSong}
+								selectedSong={selectedSong}
+								label='Add Song'
+							/>
 						</div>
 					)}
 				/>
@@ -81,7 +110,15 @@ function App() {
 				<Route
 					exact
 					path='/update'
-					render={(routerProps) => <Form {...routerProps} />}
+					render={(routerProps) => (
+						<Form
+							{...routerProps}
+							emptySong={emptySong}
+							handleUpdateSong={handleUpdateSong}
+							selectedSong={selectedSong}
+							label='Update'
+						/>
+					)}
 				/>
 			</Switch>
 		</div>

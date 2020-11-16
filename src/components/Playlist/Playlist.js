@@ -6,22 +6,29 @@ const Playlist = (props) => {
     const {songs} = props
 
     const loaded = () => (
-		<div>
-		{songs.map((song) => (
-			<article>
-			<p>{song.title}</p>
-			<p>{song.artist}</p>
-			<p>{song.time}</p>
-			<button
-				onClick={() => {
-				props.deleteSong(song);
-				}}>X</button>
-            <button>Edit</button>
-			<FontAwesomeIcon
-			    icon={faHeart}
-				// onClick={() => props.addToFaves(song)}
-			/>
-			</article>
+			<div>
+				{songs.map((song) => (
+					<article>
+						<p>{song.title}</p>
+						<p>{song.artist}</p>
+						<p>{song.time}</p>
+						<button
+							onClick={() => {
+								props.deleteSong(song);
+							}}>
+							X
+						</button>
+						<button
+							onClick={() => {
+                                props.selectASong(song)
+                                props.history.push('/update')
+							}}>
+							Edit
+						</button>
+						<FontAwesomeIcon
+							icon={faHeart}
+						/>
+					</article>
 				))}
 			</div>
 		);
