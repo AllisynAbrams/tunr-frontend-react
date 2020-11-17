@@ -9,8 +9,8 @@ button {
     display: grid;
     align-items: center; 
     grid-template-rows: 50% 50%;
-    grid-template-columns: 40% 40% 5% auto auto;
-    margin: 0px 10px 20px 15px;
+    grid-template-columns: 35% 35% 5% auto auto;
+    margin: 0px 10px 20px 5px;
     font-family: 'Source Code Pro', monospace;
     font-size: 14px;
     grid-gap: 5px;
