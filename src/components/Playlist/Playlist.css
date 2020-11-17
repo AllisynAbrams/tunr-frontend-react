@@ -49,3 +49,7 @@ button {
     grid-row: 2 / 3;
     margin-top: -5px;
 }
+
+.edit, .delete, .fave:hover {
+    cursor: pointer;
+}
