@@ -26,3 +26,7 @@ p {
     font-family: 'Anton', sans-serif;
     letter-spacing: 1px;
 }
+
+.submit-button:hover {
+    cursor: pointer;
+}
