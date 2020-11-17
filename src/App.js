@@ -94,8 +94,9 @@ const [selectedSong, setSelectedSong] = useState(emptySong);
   return (
 		<div className='App'>
 			<header className='header'>
-				<h1>TUNR</h1>
-				<h2>FOR ALL YOUR PLAYLIST NEEDS</h2>
+				<h1>TUNR.</h1>
+				<h4>FOR ALL YOUR PLAYLIST NEEDS</h4>
+				<div className='border'></div>
 			</header>
 
 			<Switch>
@@ -104,7 +105,7 @@ const [selectedSong, setSelectedSong] = useState(emptySong);
 					path='/'
 					render={(routerProps) => (
 						<div>
-							<h2>My Playlist</h2>
+							<h2 className='playlist'>PLAYLIST</h2>
 							<Playlist
 								{...routerProps}
 								songs={songs}
@@ -114,14 +115,14 @@ const [selectedSong, setSelectedSong] = useState(emptySong);
 								addToFaves={addToFaves}
 							/>
 
-							<h2>My Favorites</h2>
+							<h2 className='favorite'>FAVORITE SONG LIST</h2>
 							<Favorites
 								{...routerProps}
 								faves={faves}
 								removeFromFaves={removeFromFaves}
 							/>
 
-							<h2>Add Song to Playlist</h2>
+							<h2 className='add'>ADD A NEW SONG TO PLAYLIST</h2>
 							<Form
 								{...routerProps}
 								emptySong={emptySong}
